@@ -1,5 +1,7 @@
 package br.pro.hashi.ensino.desagil.desafio.model;
 
+import java.applet.Applet;
+import java.awt.*;
 import java.util.Stack;
 
 public class CpuPlayer extends Player {
@@ -12,6 +14,7 @@ public class CpuPlayer extends Player {
     private final boolean[][] visited;
     private final int numRows;
     private final int numCols;
+    private boolean win = false;
 
     // Por outro lado, o conceito de nó também existe no caso do tabuleiro porque
     // precisamos de algum tipo de objeto para ser guardado na pilha. Veja no final
@@ -49,7 +52,7 @@ public class CpuPlayer extends Player {
 
     // O corpo do loop implícito mencionado acima é este método.
     public void move() {
-        if (!stack.isEmpty()) {
+        if (!stack.isEmpty() && col != 14 && row != 14) {
 
             // Na árvore, precisávamos dar um peek na pilha para descobrir a
             // localização atual. Aqui não precisamos fazer isso, pois já
@@ -107,6 +110,20 @@ public class CpuPlayer extends Player {
 
         private int getCol() {
             return col;
+        }
+
+        private boolean checkNode(int row, int col) {
+            if ((row == 4) && (col == 14)) {
+                return win;
+            }
+        }
+    }
+
+    public class WinnerMSG extends Applet {
+        public void paint(Graphics g, boolean win) {
+            if (win == true) {
+                g.drawString("CPU Wins!", 100, 100);
+            }
         }
     }
 }
